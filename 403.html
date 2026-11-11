@@ -1,376 +1,409 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>403 - Forbidden</title>
 
+    <title>403 - Forbidden | Haproven</title>
     <meta name="robots" content="noindex, follow">
 
-
-    <!-- ================= FAVICON ================= -->
-
-    <link rel="icon" href="https://example.com/assets/img/favicon.ico" type="image/x-icon">
-
+    <link rel="icon" href="/assets/img/favicon.ico">
 
     <style>
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --danger: #ef4444;
+            --warning: #fbbf24;
+            --bg: #0b1020;
+            --card: #111827;
+            --text: #f8fafc;
+            --muted: #94a3b8;
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #1e1e2f, #26263d);
-            color: #fff;
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
+            background:
+                radial-gradient(circle at top, #3b1e1e, transparent 60%),
+                var(--bg);
+            color: var(--text);
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .error-container {
+            width: 100%;
+            max-width: 520px;
+            padding: 35px 25px;
             text-align: center;
-            overflow: hidden
+            border-radius: 22px;
         }
 
-        .container {
-            padding: 40px
+        .error-code {
+            font-size: clamp(5rem, 20vw, 8rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--danger);
+            text-shadow: 0 0 30px rgba(239,68,68,.25);
+            margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 8rem;
-            color: #ff4d4d;
-            text-shadow: 0 0 20px rgba(255, 77, 77, .6);
-            margin-bottom: 10px
-        }
-
-        h2 {
-            font-size: 1.8rem;
+        .error-title {
+            font-size: 1.7rem;
             margin-bottom: 15px;
-            color: #f5f5f5
         }
 
-        p {
-            color: #bbb;
-            margin-bottom: 15px;
-            font-size: 1rem
+        .error-message {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .countdown-box {
+            padding: 15px;
+            margin: 20px 0;
+            background: rgba(255,255,255,.04);
+            border-radius: 12px;
         }
 
         #countdown {
-            color: #ffcc00;
-            font-weight: 700
+            color: var(--warning);
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            margin-bottom: 20px;
+            border-radius: 30px;
+            font-size: .8rem;
+            background: rgba(239,68,68,.12);
+            color: #fca5a5;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--danger);
+            border-radius: 50%;
         }
 
         .btn-row {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 20px
+            margin-top: 25px;
         }
 
         .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: #ff4d4d;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 22px;
             border: none;
-            cursor: pointer;
+            border-radius: 12px;
+            background: var(--danger);
+            color: #fff;
             font-size: 1rem;
-            transition: transform .2s, background .2s
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: .2s;
         }
 
         .btn:hover {
-            background: #e63946;
-            transform: scale(1.05)
+            transform: translateY(-2px);
+            filter: brightness(1.1);
         }
 
         .btn.secondary {
-            background: #4d5bff
-        }
-
-        .btn.secondary:hover {
-            background: #3a46cc
+            background: var(--primary);
         }
 
         .btn.hidden {
-            display: none !important
+            display: none !important;
         }
 
         #warning {
-            margin-top: 20px;
-            color: #ffcc00;
+            display: none;
+            color: var(--warning);
             font-size: .9rem;
-            display: none
+            line-height: 1.6;
+            margin-top: 20px;
         }
 
         #warning.show {
-            display: block
+            display: block;
+        }
+
+        .footer-text {
+            color: #64748b;
+            font-size: .75rem;
+            margin-top: 25px;
+        }
+
+        @media(max-width:480px) {
+            .error-container {
+                padding: 30px 18px;
+            }
+
+            .btn-row {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
+    <main class="error-container">
 
-        <h1>403</h1>
+        <div class="status">
+            <span class="status-dot"></span>
+            ACCESS RESTRICTED
+        </div>
 
-        <h2>Access Forbidden</h2>
+        <h1 class="error-code">403</h1>
 
-        <p>
+        <h2 class="error-title">Access Forbidden</h2>
+
+        <p class="error-message">
             Aapko is page ko access karne ki permission nahi hai.
         </p>
 
-        <!-- Auto Back Countdown -->
-        <p>
-            Wapas ja rahe hain <span id="countdown">5</span> seconds mein...
-        </p>
+        <div class="countdown-box">
+            <p>Automatic navigation in</p>
+            <span id="countdown">5</span> seconds
+        </div>
 
         <div class="btn-row">
-            <button id="backBtn" class="btn secondary hidden" onclick="_0x4a2c()">
-                ⬅️ Wapas Jayein
+
+            <button
+                id="backBtn"
+                class="btn secondary hidden"
+                type="button">
+                ← Wapas Jayein
             </button>
 
-            <button id="homeBtn" class="btn hidden" onclick="_0x1f3d()">
+            <a
+                id="homeBtn"
+                class="btn hidden"
+                href="/">
                 🏠 Home Par Jayein
-            </button>
+            </a>
+
         </div>
 
         <div id="warning">
-            ⚠️ Developer Tools abhi bhi khule hain. Inhe band karein.
+            ⚠️ Developer Tools detected.
+            Navigation buttons temporarily hidden.
         </div>
 
-    </div>
+
+    </main>
 
     <script>
-        (function () {
+        (() => {
+            "use strict";
 
-            const _0x1a2b = {
+            /* ================= CONFIG ================= */
+
+            const CONFIG = {
                 homeURL: "/",
-                checkInterval: 250,
+                autoBackTime: 5,
+                checkInterval: 500,
                 sizeThreshold: 160,
                 timingThreshold: 100,
-                lockKey: "dt_lock",
-                returnKey: "dt_return",
                 confirmCycles: 2,
-
-                // Auto back time
-                autoBackTime: 5
+                lockKey: "dt_lock",
+                returnKey: "dt_return"
             };
 
-            const _0x3e4f = document.getElementById('homeBtn');
-            const _0x5a1b = document.getElementById('backBtn');
-            const _0x2c9e = document.getElementById('warning');
-            const _0x6b2a = document.getElementById('countdown');
+            /* ================= ELEMENTS ================= */
 
-            let _0x4d12 = false;
-            let _0x8f2a = null;
-            let _0x9e1c = 0;
+            const backBtn = document.getElementById("backBtn");
+            const homeBtn = document.getElementById("homeBtn");
+            const warning = document.getElementById("warning");
+            const countdown = document.getElementById("countdown");
 
-            function _0x11ab() {
+            /* ================= STATE ================= */
+
+            let devtoolsDetected = false;
+            let previousState = null;
+            let confirmCount = 0;
+            let remaining = CONFIG.autoBackTime;
+            let navigationStarted = false;
+            let timer = null;
+
+            /* ================= DEVTOOLS CHECK ================= */
+
+            function detectSize() {
                 return (
-                    (window.outerWidth - window.innerWidth) >
-                    _0x1a2b.sizeThreshold ||
-                    (window.outerHeight - window.innerHeight) >
-                    _0x1a2b.sizeThreshold
+                    window.outerWidth - window.innerWidth >
+                        CONFIG.sizeThreshold ||
+                    window.outerHeight - window.innerHeight >
+                        CONFIG.sizeThreshold
                 );
             }
 
-            function _0x22cd() {
-                const _0x3b = performance.now();
+            function detectDebugger() {
+                const start = performance.now();
                 debugger;
-                return (performance.now() - _0x3b) >
-                    _0x1a2b.timingThreshold;
+                return performance.now() - start >
+                    CONFIG.timingThreshold;
             }
 
-            function _0x33ef() {
-                return _0x11ab() || _0x22cd();
+            function detectDevTools() {
+                return detectSize() || detectDebugger();
             }
 
-            function _0x44fa() {
-                const _0x12 = _0x33ef();
+            function confirmedDetection() {
+                const detected = detectDevTools();
 
-                if (_0x12 === _0x8f2a) {
-                    _0x9e1c++;
+                if (detected === previousState) {
+                    confirmCount++;
                 } else {
-                    _0x8f2a = _0x12;
-                    _0x9e1c = 1;
+                    previousState = detected;
+                    confirmCount = 1;
                 }
 
-                return _0x9e1c >= _0x1a2b.confirmCycles
-                    ? _0x12
-                    : _0x4d12;
+                return confirmCount >= CONFIG.confirmCycles
+                    ? detected
+                    : devtoolsDetected;
             }
 
-            function _0x55bc(_0x0a) {
-                sessionStorage.removeItem(_0x1a2b.lockKey);
-                _0x0a();
-            }
+            /* ================= BUTTON CONTROL ================= */
 
-            // Home
-            window._0x1f3d = function () {
-                _0x55bc(() => {
-                    window.location.href = _0x1a2b.homeURL;
-                });
-            };
+            function setProtection(active) {
+                if (devtoolsDetected === active) return;
 
-            // Back
-            window._0x4a2c = function () {
-                _0x55bc(() => {
+                devtoolsDetected = active;
 
-                    const _0x7a =
-                        sessionStorage.getItem(
-                            _0x1a2b.returnKey
-                        );
+                if (active) {
+                    sessionStorage.setItem(CONFIG.lockKey, "1");
 
-                    if (_0x7a) {
-                        window.location.href = _0x7a;
-                    }
-                    else if (document.referrer) {
-                        window.location.href = document.referrer;
-                    }
-                    else {
-                        window.location.href =
-                            _0x1a2b.homeURL;
-                    }
-
-                });
-            };
-
-            function _0x66de(_0x11) {
-
-                if (_0x11 === _0x4d12) return;
-
-                _0x4d12 = _0x11;
-
-                if (_0x11) {
-
-                    sessionStorage.setItem(
-                        _0x1a2b.lockKey,
-                        "1"
-                    );
-
-                    _0x3e4f.classList.add('hidden');
-                    _0x5a1b.classList.add('hidden');
-                    _0x2c9e.classList.add('show');
+                    backBtn.classList.add("hidden");
+                    homeBtn.classList.add("hidden");
+                    warning.classList.add("show");
 
                 } else {
+                    sessionStorage.removeItem(CONFIG.lockKey);
 
-                    sessionStorage.removeItem(
-                        _0x1a2b.lockKey
-                    );
-
-                    _0x3e4f.classList.remove('hidden');
-                    _0x5a1b.classList.remove('hidden');
-                    _0x2c9e.classList.remove('show');
-
+                    backBtn.classList.remove("hidden");
+                    homeBtn.classList.remove("hidden");
+                    warning.classList.remove("show");
                 }
             }
 
-            function _0x77ef() {
-                _0x66de(_0x44fa());
+            function checkProtection() {
+                setProtection(confirmedDetection());
             }
 
-            setInterval(
-                _0x77ef,
-                _0x1a2b.checkInterval
-            );
+            /* ================= NAVIGATION ================= */
 
-            window.addEventListener(
-                'resize',
-                _0x77ef
-            );
+            function goHome() {
+                if (navigationStarted) return;
 
-            _0x77ef();
+                navigationStarted = true;
+                clearInterval(timer);
 
-            window.addEventListener(
-                'pageshow',
-                (_0x01) => {
+                sessionStorage.removeItem(CONFIG.lockKey);
 
-                    if (_0x01.persisted) {
-                        window.location.reload();
-                    }
-                    else {
-                        _0x77ef();
-                    }
+                location.replace(CONFIG.homeURL);
+            }
 
+            function goBack() {
+                if (navigationStarted) return;
+
+                navigationStarted = true;
+                clearInterval(timer);
+
+                sessionStorage.removeItem(CONFIG.lockKey);
+
+                const returnURL =
+                    sessionStorage.getItem(CONFIG.returnKey);
+
+                sessionStorage.removeItem(CONFIG.returnKey);
+
+                if (returnURL) {
+                    location.replace(returnURL);
+                } else if (history.length > 1 && document.referrer) {
+                    history.back();
+                } else {
+                    location.replace(CONFIG.homeURL);
                 }
+            }
+
+            backBtn.addEventListener("click", goBack);
+
+            homeBtn.addEventListener("click", (event) => {
+                event.preventDefault();
+                goHome();
+            });
+
+            /* ================= PROTECTION LOOP ================= */
+
+            checkProtection();
+
+            const protectionTimer = setInterval(
+                checkProtection,
+                CONFIG.checkInterval
             );
 
-            // =========================================
-            // AUTO BACK
-            // =========================================
+            window.addEventListener("resize", checkProtection);
 
-            let _0xAutoBack =
-                _0x1a2b.autoBackTime;
-
-            const _0xAutoTimer =
-                setInterval(() => {
-
-                    _0xAutoBack--;
-
-                    if (_0xAutoBack >= 0) {
-                        _0x6b2a.textContent =
-                            _0xAutoBack;
-                    }
-
-                    if (_0xAutoBack <= 0) {
-
-                        clearInterval(_0xAutoTimer);
-
-                        // Previous page available
-                        if (document.referrer) {
-                            window.history.back();
-                        }
-
-                        // No previous page → Home
-                        else {
-                            window.location.href =
-                                _0x1a2b.homeURL;
-                        }
-                    }
-
-                }, 1000);
-
-            // =========================================
-            // HISTORY PROTECTION
-            // =========================================
-
-            history.pushState(
-                { trap: true },
-                '',
-                location.href
-            );
-
-            window.addEventListener(
-                'popstate',
-                () => {
-
-                    if (
-                        _0x4d12 ||
-                        sessionStorage.getItem(
-                            _0x1a2b.lockKey
-                        ) === "1"
-                    ) {
-
-                        history.pushState(
-                            { trap: true },
-                            '',
-                            location.href
-                        );
-
-                    }
-
+            window.addEventListener("pageshow", (event) => {
+                if (event.persisted) {
+                    location.reload();
                 }
-            );
+            });
+
+            /* ================= AUTO BACK ================= */
+
+            timer = setInterval(() => {
+
+                if (navigationStarted) {
+                    clearInterval(timer);
+                    return;
+                }
+
+                // Protection active: pause countdown
+                if (devtoolsDetected) return;
+
+                remaining--;
+
+                countdown.textContent = Math.max(remaining, 0);
+
+                if (remaining <= 0) {
+                    clearInterval(timer);
+                    clearInterval(protectionTimer);
+                    goBack();
+                }
+
+            }, 1000);
 
         })();
     </script>
 
 </body>
-
 </html>
