@@ -1,3 +1,30 @@
- <!--/user                    /    302!  -->
- <!--/page/directory/project/                                  /pages/projects/  301!   -->
-         
+# ** USER REDIRECT **
+/user/*                    /users/                  302!
+
+
+# ** PROJECT REDIRECT **
+/project/*                 /pages/projects/          301!
+
+
+# ** DIRECTORY REDIRECT **
+/directory/*               /pages/directory/         301!
+
+
+# ** ABOUT REDIRECT **
+/about-us                  /about/                   301!
+
+
+# ** HOME REDIRECT **
+/home                      /                         301!
+
+
+# ** TEMPORARY REDIRECT **
+/maintenance                /                         302!
+
+
+# ** BLOG REDIRECT **
+/blog/*                    /pages/blog/              301!
+
+
+# ** CONTACT REDIRECT **
+/contact-us                 /contact/                301!
