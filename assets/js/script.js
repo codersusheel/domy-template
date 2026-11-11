@@ -62,223 +62,187 @@ setTimeout(setFooterYear, 1500);
 
 /* =========================================
    HAPROVEN | HEADER CONTROLLER
-   External HTML + Responsive Navigation
 ========================================= */
 
 (() => {
 
-    function initHeader() {
+    const header = document.getElementById("siteHeader");
+    if (!header) return;
 
-        const header = document.getElementById("siteHeader");
+    const menu = header.querySelector("#navMenu");
+    const toggle = header.querySelector("#menuToggle");
+    const theme = header.querySelector("#themeToggle");
 
-        if (!header || header.dataset.initialized) return;
+    /* ACTIVE PAGE */
 
-        header.dataset.initialized = "true";
+    const currentPath = location.pathname.replace(/\/+$/, "") || "/";
 
-        const menu = header.querySelector("#navMenu");
-        const menuToggle = header.querySelector("#menuToggle");
+    menu?.querySelectorAll(".nav-link").forEach(link => {
 
-        const more = header.querySelector("#navMore");
-        const moreToggle = header.querySelector("#moreToggle");
+        const linkPath = new URL(link.href, location.origin)
+            .pathname.replace(/\/+$/, "") || "/";
 
-        const themeToggle = header.querySelector("#themeToggle");
+        const isActive = linkPath === currentPath;
 
-        /* =====================================
-           ACTIVE PAGE
-        ===================================== */
+        link.classList.toggle("active", isActive);
 
-        const currentPath =
-            location.pathname.replace(/\/+$/, "") || "/";
-
-        header.querySelectorAll(".nav-link").forEach(link => {
-
-            const path = new URL(link.href, location.origin)
-                .pathname.replace(/\/+$/, "") || "/";
-
-            const active = path === currentPath;
-
-            link.classList.toggle("active", active);
-
-            if (active) {
-                link.setAttribute("aria-current", "page");
-            } else {
-                link.removeAttribute("aria-current");
-            }
-
-        });
-
-        /* =====================================
-           MOBILE MENU
-        ===================================== */
-
-        function closeMenu() {
-
-            menu?.classList.remove("is-open");
-            menuToggle?.classList.remove("is-open");
-
-            menuToggle?.setAttribute("aria-expanded", "false");
-            menuToggle?.setAttribute("aria-label", "Open navigation");
-
+        if (isActive) {
+            link.setAttribute("aria-current", "page");
+        } else {
+            link.removeAttribute("aria-current");
         }
 
-        menuToggle?.addEventListener("click", () => {
+    });
 
-            const open = menu.classList.toggle("is-open");
+    /* MOBILE MENU */
 
-            menuToggle.classList.toggle("is-open", open);
+    const closeMenu = () => {
 
-            menuToggle.setAttribute("aria-expanded", String(open));
+        menu?.classList.remove("is-open");
+        toggle?.classList.remove("is-open");
 
-            menuToggle.setAttribute(
-                "aria-label",
-                open ? "Close navigation" : "Open navigation"
-            );
+        toggle?.setAttribute("aria-expanded", "false");
+        toggle?.setAttribute("aria-label", "Open navigation");
 
-            if (!open) closeMore();
+    };
 
-        });
+    toggle?.addEventListener("click", () => {
 
-        /* =====================================
-           MORE DROPDOWN
-        ===================================== */
+        const isOpen = menu.classList.toggle("is-open");
 
-        function closeMore() {
+        toggle.classList.toggle("is-open", isOpen);
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        toggle.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation" : "Open navigation"
+        );
 
-            more?.classList.remove("is-open");
+    });
 
-            moreToggle?.setAttribute("aria-expanded", "false");
+    /* CLOSE ON LINK CLICK */
 
+    menu?.addEventListener("click", event => {
+
+        if (event.target.closest(".nav-link")) {
+            closeMenu();
         }
 
-        /* MOBILE CLICK */
+    });
 
-        moreToggle?.addEventListener("click", () => {
+    /* CLOSE OUTSIDE */
 
-            if (window.matchMedia("(max-width: 850px)").matches) {
+    document.addEventListener("click", event => {
 
-                const open = more.classList.toggle("is-open");
+        if (!header.contains(event.target)) {
+            closeMenu();
+        }
 
-                moreToggle.setAttribute(
-                    "aria-expanded",
-                    String(open)
-                );
+    });
 
-            }
+    /* CLOSE ON ESCAPE */
 
-        });
+    document.addEventListener("keydown", event => {
 
-        /* DESKTOP HOVER */
+        if (event.key === "Escape") {
+            closeMenu();
+        }
 
-        more?.addEventListener("mouseenter", () => {
+    });
 
-            if (window.matchMedia("(min-width: 851px)").matches) {
+    /* THEME TOGGLE */
 
-                moreToggle?.setAttribute("aria-expanded", "true");
+    theme?.addEventListener("click", () => {
 
-            }
+        const dark = document.documentElement
+            .classList.toggle("dark");
 
-        });
+        theme.setAttribute(
+            "aria-label",
+            dark ? "Switch to light theme" : "Switch to dark theme"
+        );
 
-        more?.addEventListener("mouseleave", () => {
-
-            if (window.matchMedia("(min-width: 851px)").matches) {
-
-                moreToggle?.setAttribute("aria-expanded", "false");
-
-            }
-
-        });
-
-        /* =====================================
-           NAVIGATION CLICK
-        ===================================== */
-
-        menu?.addEventListener("click", event => {
-
-            if (event.target.closest(".nav-link")) {
-
-                closeMenu();
-                closeMore();
-
-            }
-
-        });
-
-        /* =====================================
-           OUTSIDE CLICK
-        ===================================== */
-
-        document.addEventListener("click", event => {
-
-            if (!header.contains(event.target)) {
-
-                closeMenu();
-                closeMore();
-
-            }
-
-        });
-
-        /* =====================================
-           ESCAPE KEY
-        ===================================== */
-
-        document.addEventListener("keydown", event => {
-
-            if (event.key === "Escape") {
-
-                closeMenu();
-                closeMore();
-
-            }
-
-        });
-
-        /* =====================================
-           THEME TOGGLE
-        ===================================== */
-
-        themeToggle?.addEventListener("click", () => {
-
-            const dark =
-                document.documentElement.classList.toggle("dark");
-
-            themeToggle.setAttribute(
-                "aria-label",
-                dark ? "Switch to light theme" : "Switch to dark theme"
-            );
-
-        });
-
-    }
-
-    /* =====================================
-       EXTERNAL HEADER DETECTION
-    ===================================== */
-
-    if (document.getElementById("siteHeader")) {
-
-        initHeader();
-
-    } else {
-
-        const observer = new MutationObserver(() => {
-
-            if (document.getElementById("siteHeader")) {
-
-                initHeader();
-
-                observer.disconnect();
-
-            }
-
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-
-    }
+    });
 
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   HAPROVEN FOOTER ACTIVE PAGE
+========================================= */
+
+function updateFooterActive() {
+
+    const currentPage = document.body.getAttribute("data-page");
+
+    document.querySelectorAll(".footer-app a[data-page]").forEach(link => {
+
+        const isActive = link.dataset.page === currentPage;
+
+        link.classList.toggle("active", isActive);
+
+        if (isActive) {
+            link.setAttribute("aria-current", "page");
+        } else {
+            link.removeAttribute("aria-current");
+        }
+
+    });
+
+}
+
+/* CHECK AFTER FOOTER LOAD */
+const footerObserver = new MutationObserver(() => {
+    updateFooterActive();
+});
+
+footerObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+/* INITIAL CHECK */
+updateFooterActive();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

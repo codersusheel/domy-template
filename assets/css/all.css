@@ -1,13 +1,31 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* =========================================
    HAPROVEN PREMIUM FOOTER V2
 ========================================= */
 
 .app-footer {
     --footer-blue: #2563eb;
+    padding: 10px 10%;
+    border-top: 1px solid;
 
-    /* color: var(--text-color, #111);
-    background: var(--bg-color, #fff); */
 }
 
 /* =========================================
@@ -16,16 +34,12 @@
 
 .footer-desktop {
     display: block;
-    /* background: var(--bg-color, #fff); */
-    border-top: 1px solid #80808020;
+    padding-top: 20px;
 }
 
 /* CONTAINER */
 
 .desktop-footer-container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 55px 25px 40px;
 
     display: grid;
     grid-template-columns: 1.6fr 1fr 1fr 1fr;
@@ -116,11 +130,9 @@
 /* BOTTOM */
 
 .desktop-footer-bottom {
-    border-top: 1px solid #80808020;
-
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px 25px;
+    margin-top: 10px;
+    border-top: 1px solid #8665657a;
+    padding: 10px 5px;
 
     display: flex;
     justify-content: space-between;
@@ -135,7 +147,7 @@
     opacity: .7;
 }
 
-.desktop-footer-bottom > span {
+.desktop-footer-bottom>span {
     font-size: 12px;
     opacity: .6;
 }
@@ -190,6 +202,10 @@
         gap: 35px;
     }
 
+
+    .app-footer {
+        padding: 10px 2%;
+    }
 }
 
 /* =========================================
@@ -197,6 +213,8 @@
 ========================================= */
 
 @media (max-width: 768px) {
+
+
 
     .footer-desktop {
         display: none;
@@ -325,3 +343,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+main {
+
+    min-height: 100vh;
+}

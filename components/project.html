@@ -1,0 +1,162 @@
+
+<!-- ================= PROJECT COMPONENT ================= -->
+
+<section class="hp-project" id="project">
+
+    <div class="hp-project-container">
+
+        <span class="hp-project-label">HAPROVEN SHOWCASE</span>
+
+        <h2 class="hp-project-title">
+            Our <span>Projects</span>
+        </h2>
+
+        <p class="hp-project-description">
+            Explore our innovative projects and technology solutions.
+        </p>
+
+
+
+        <div class="hp-project-grid">
+
+            <article class="hp-project-card">
+                <h3>HaproID</h3>
+                <p>Digital Identity Platform</p>
+                <a href="https://haproid.netlify.app">
+                    Explore Project →
+                </a>
+            </article>
+
+            <article class="hp-project-card">
+                <h3>HaproCERT</h3>
+                <p>Certificate Verification System</p>
+                <a href="/pages/hapro-cert/verify/">
+                    Explore Project →
+                </a>
+            </article>
+
+            <article class="hp-project-card">
+                <h3>HaproLearn</h3>
+                <p>Learning & Educational Resources</p>
+                <a href="#">
+                    Explore Project →
+                </a>
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= COMPONENT CSS ================= -->
+
+<style>
+.hp-project {
+    padding: 70px 20px;
+    background: var(--project-bg, #ffffff);
+    color: var(--project-text, #111827);
+}
+
+.hp-project-container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.hp-project-label {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.hp-project-title {
+    font-size: clamp(28px, 5vw, 42px);
+    margin: 12px 0;
+}
+
+.hp-project-title span {
+    color: #2563eb;
+}
+
+.hp-project-description {
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+.hp-project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.hp-project-card {
+    padding: 25px;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    background: #f9fafb;
+    transition: transform .2s, border-color .2s;
+}
+
+.hp-project-card:hover {
+    transform: translateY(-4px);
+    border-color: #2563eb;
+}
+
+.hp-project-card h3 {
+    margin: 0 0 10px;
+}
+
+.hp-project-card p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.hp-project-card a {
+    display: inline-block;
+    margin-top: 12px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+html.dark .hp-project {
+    --project-bg: #0b0f19;
+    --project-text: #f3f4f6;
+}
+
+html.dark .hp-project-card {
+    background: #111827;
+    border-color: #263244;
+}
+
+@media (max-width: 700px) {
+    .hp-project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hp-project {
+        padding: 45px 16px;
+    }
+}
+</style>
+
+<!-- ================= COMPONENT JS ================= -->
+
+<script>
+(function () {
+
+    const project = document.getElementById("project");
+
+    if (!project || project.dataset.initialized) return;
+
+    project.dataset.initialized = "true";
+
+    project.querySelectorAll(".hp-project-card").forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            card.dataset.hovered = "true";
+        });
+    });
+
+})();
+</script>
