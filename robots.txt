@@ -1,0 +1,80 @@
+
+# =========================================================
+# HAPROVEN - ROBOTS.TXT
+# https://sitename.netlify.app/
+# =========================================================
+
+# DEFAULT CRAWLER RULES
+User-agent: *
+Allow: /
+
+# PRIVATE AND INTERNAL DIRECTORIES
+Disallow: /admin/
+Disallow: /private/
+Disallow: /account/
+Disallow: /dashboard/
+Disallow: /config/
+Disallow: /backup/
+Disallow: /tmp/
+Disallow: /test/
+
+# AUTHENTICATION
+Disallow: /login/
+Disallow: /login.html
+Disallow: /signup/
+Disallow: /signup.html
+
+# INTERNAL SEARCH
+Disallow: /search/
+Disallow: /search.html
+
+# URL PARAMETERS
+Disallow: /*?sort=
+Disallow: /*?filter=
+Disallow: /*?search=
+Disallow: /*?query=
+Disallow: /*?q=
+Disallow: /*?page=
+
+# PUBLIC ASSETS
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+Allow: /img/
+Allow: /images/
+Allow: /fonts/
+
+# PWA FILES
+Allow: /manifest.json
+Allow: /service-worker.js
+
+# GOOGLEBOT
+User-agent: Googlebot
+Allow: /
+
+# GOOGLE IMAGE BOT
+User-agent: Googlebot-Image
+Allow: /assets/
+Allow: /img/
+Allow: /images/
+
+# BINGBOT
+User-agent: Bingbot
+Allow: /
+
+# SOCIAL PREVIEW CRAWLERS
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# SITEMAP
+Sitemap: https://sitename.netlify.app/sitemap.xml
+
+# =========================================================
+# END OF HAPROVEN ROBOTS.TXT
+# =========================================================
