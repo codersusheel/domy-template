@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Haproven Component System</title>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        h1 span {
+            color: #2563eb;
+        }
+
+        .demo {
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+
+        code {
+            color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER COMPONENT -->
+    <div section-data="header"></div>
+
+    <main>
+
+        <h1>Haproven <span>Component System</span></h1>
+
+        <p>
+            Reusable HTML, CSS and JavaScript components
+            for multiple website pages.
+        </p>
+
+        <!-- COMPONENT EXAMPLE -->
+        <div class="demo">
+            <h2>Component Example</h2>
+
+            <p>HTML:</p>
+            <code>&lt;div section-data="project"&gt;&lt;/div&gt;</code>
+
+            <p>File:</p>
+            <code>section-data/project.html</code>
+        </div>
+
+        <!-- PROJECT COMPONENT -->
+        <div section-data="project"></div>
+
+    </main>
+
+    <!-- FOOTER COMPONENT -->
+    <div section-data="footer"></div>
+
+    <!-- COMPONENT LOADER -->
+    <script src="/section-data/components/loader.js"></script>
+
+</body>
+</html>
+

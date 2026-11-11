@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- BASIC -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>Haproven Component System</title>
+    <meta name="description" content="Haproven reusable HTML component loader demo.">
+
+    <!-- CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        main {
+            min-height: 70vh;
+            padding: 50px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .hero {
+            padding: 50px 20px;
+            text-align: center;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: auto;
+            line-height: 1.7;
+            color: #64748b;
+        }
+
+        .hero a {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            margin: 40px 0 20px;
+        }
+
+        .demo-card {
+            padding: 25px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            line-height: 1.8;
+        }
+
+        /* DARK MODE */
+        html.dark body {
+            background: #0f172a;
+            color: #f1f5f9;
+        }
+
+        html.dark .hero,
+        html.dark .demo-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        html.dark .hero p {
+            color: #cbd5e1;
+        }
+    </style>
+
+
+    <link rel="stylesheet" href="/assets/css/section.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- HEADER COMPONENT -->
+    <div id="header"></div>
+
+    <!-- SLIDER COMPONENT -->
+    <div id="slider"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <div class="container">
+
+            <section class="hero">
+
+                <h1>
+                    Haproven <span>Component System</span>
+                </h1>
+
+                <p>
+                    Build reusable website sections using HTML,
+                    CSS and JavaScript. Load components automatically
+                    across multiple pages using a single loader.
+                </p>
+
+                <a href="#demo">Explore Demo</a>
+
+            </section>
+
+            <!-- DEMO -->
+            <section id="demo">
+
+                <h2 class="section-title">
+                    Component Loader Demo
+                </h2>
+
+                <div class="demo-card">
+
+                    <p>
+                        <strong>Header:</strong>
+                        Automatically loaded from header.html
+                    </p>
+
+                    <p>
+                        <strong>Slider:</strong>
+                        Automatically loaded from slider.html
+                    </p>
+
+                    <p>
+                        <strong>Footer:</strong>
+                        Automatically loaded from footer.html
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER COMPONENT -->
+    <div id="footer"></div>
+
+    <!-- COMPONENT LOADER -->
+    <script src="/section/components/loader.js"></script>
+    <script src="/assets/js/section.js"></script>
+
+</body>
+
+</html>

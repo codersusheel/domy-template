@@ -1,25 +1,25 @@
 
 /* =========================================
-   HAPROVEN COMPONENT LOADER V2
-   HTML + CSS + JS | Reusable Components
+   HAPROVEN COMPONENT LOADER
+   HTML + CSS + JS | Reusable Sections
 ========================================= */
 
 (() => {
 
     "use strict";
 
-    const BASE = "/components/";
+    const BASE = "/section-data/";
 
     const cssLoaded = new Set();
     const jsLoaded = new Map();
     const componentTasks = new WeakMap();
 
-    // COMPONENT NAME VALIDATION
+    /* COMPONENT NAME VALIDATION */
     function validName(name) {
         return /^[a-zA-Z0-9_-]+$/.test(name);
     }
 
-    // LOAD CSS ONCE
+    /* LOAD CSS ONCE */
     function loadCSS(name, styles) {
 
         styles.forEach(style => {
@@ -44,10 +44,10 @@
 
     }
 
-    // LOAD EXTERNAL JS ONCE
-    function loadJS(src) {
+    /* LOAD EXTERNAL JS ONCE */
+    function loadJS(src, sectionURL) {
 
-        const url = new URL(src, location.href).href;
+        const url = new URL(src, sectionURL).href;
 
         if (jsLoaded.has(url)) {
             return jsLoaded.get(url);
@@ -61,6 +61,7 @@
             script.onload = resolve;
 
             script.onerror = () => {
+                jsLoaded.delete(url);
                 reject(new Error("JS load failed: " + url));
             };
 
@@ -74,7 +75,7 @@
 
     }
 
-    // EXECUTE INLINE JS FOR ONE COMPONENT
+    /* EXECUTE INLINE JS */
     function runInlineJS(element, scripts) {
 
         scripts.forEach(oldScript => {
@@ -90,14 +91,13 @@
             `;
 
             document.body.appendChild(script);
-
             script.remove();
 
         });
 
     }
 
-    // LOAD COMPONENT
+    /* LOAD COMPONENT */
     async function loadComponent(element) {
 
         if (element.dataset.loaded === "true") {
@@ -110,7 +110,7 @@
 
         const task = (async () => {
 
-            const name = element.dataset.section;
+            const name = element.getAttribute("section-data");
 
             if (!validName(name)) {
                 throw new Error("Invalid section name: " + name);
@@ -118,10 +118,14 @@
 
             try {
 
-                // FETCH HTML
-                const response = await fetch(
-                    BASE + name + ".html"
-                );
+                /* SECTION FILE URL */
+                const sectionURL = new URL(
+                    BASE + name + ".html",
+                    location.origin
+                ).href;
+
+                /* FETCH HTML */
+                const response = await fetch(sectionURL);
 
                 if (!response.ok) {
                     throw new Error(name + ".html not found");
@@ -129,44 +133,44 @@
 
                 const html = await response.text();
 
-                // PARSE HTML
+                /* PARSE HTML */
                 const doc = new DOMParser().parseFromString(
                     html,
                     "text/html"
                 );
 
-                // EXTRACT CSS + JS
+                /* EXTRACT CSS + JS */
                 const styles = [...doc.querySelectorAll("style")];
                 const scripts = [...doc.querySelectorAll("script")];
 
                 styles.forEach(style => style.remove());
                 scripts.forEach(script => script.remove());
 
-                // INSERT HTML
+                /* INSERT HTML */
                 element.innerHTML = doc.body.innerHTML;
 
-                // INSERT CSS
+                /* LOAD CSS */
                 loadCSS(name, styles);
 
-                // LOAD NESTED SECTIONS
+                /* LOAD NESTED SECTIONS */
                 const nested = [
-                    ...element.querySelectorAll("[data-section]")
+                    ...element.querySelectorAll("[section-data]")
                 ];
 
                 await Promise.all(
                     nested.map(loadComponent)
                 );
 
-                // EXTERNAL JS
+                /* EXTERNAL JS */
                 for (const script of scripts) {
 
                     if (script.src) {
-                        await loadJS(script.src);
+                        await loadJS(script.getAttribute("src"), sectionURL);
                     }
 
                 }
 
-                // INLINE JS
+                /* INLINE JS */
                 runInlineJS(
                     element,
                     scripts.filter(script => !script.src)
@@ -200,12 +204,18 @@
 
     }
 
-    // FIND ALL SECTIONS
+    /* FIND ALL SECTIONS */
     async function init(container = document) {
 
-        const elements = [
-            ...container.querySelectorAll("[data-section]")
-        ];
+        const elements = [];
+
+        if (container.matches?.("[section-data]")) {
+            elements.push(container);
+        }
+
+        elements.push(
+            ...container.querySelectorAll("[section-data]")
+        );
 
         await Promise.allSettled(
             elements.map(loadComponent)
@@ -213,7 +223,7 @@
 
     }
 
-    // PUBLIC API
+    /* PUBLIC API */
     window.HaprovenLoader = {
 
         init,
@@ -228,7 +238,7 @@
 
     };
 
-    // AUTO START
+    /* AUTO START */
     if (document.readyState === "loading") {
 
         document.addEventListener("DOMContentLoaded", () => init());
@@ -240,3 +250,20 @@
     }
 
 })();
+
+
+
+
+
+
+/* 
+
+<div section-data="header"></div>
+
+<div section-data="footer"></div>
+
+Esh me js me bar bar add karna nahi parta and ex. header.html
+ jish me html+css+js ak sath add kar do and all 
+ ak link me kishi bhi page me add kar sakte ho
+
+*/
